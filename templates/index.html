@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test form</title>
+</head>
+<body>
+    <form action="#" method="POST">
+        <div>
+            <label for="word">Word: </label>
+            <input type="text" id="word" name="word">
+        </div>
+        <div>
+            <input type="submit">
+        </div>
+    </form>
+    <div>
+        {% for word in words %}
+            <p>{{word}}</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
