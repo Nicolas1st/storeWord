@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Profile page</h1>
+<form action={{url_for('profile')}} method="POST">
+    <div>
+        <label for="word">Word: </label>
+        <input type="text" id="word" name="word">
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+<div>
+    {% for word in words %}
+        <p>{{word}}</p>
+    {% endfor %}
+</div>
+<!-- <form action={{url_for("profile")}} method="POST">
+    <div>
+        <label for="old_password">Password</label>
+        <input type="password" id="old_password" name="old_password">
+    </div>
+    <div>
+        <label for="new_password">Password</label>
+        <input type="password" id="new_password" name="new_password">
+    </div>
+    <input type="submit">
+</form> -->
+{% endblock %}
