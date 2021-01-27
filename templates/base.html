@@ -4,10 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>storeWord</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/style.css')}}">
 </head>
 <body>
-    <nav>
-       
+    <nav class="navbar">
+        <ul class="navbar__container">
+            <li class="navbar__logo"><a href="" class="navbar__link">storeWord</a></li>
+            <li class="navbar__links">
+                <a href="" class="navbar__link">Words</a>
+                <a href="" class="navbar__link">Login</a>
+                <a href="" class="navbar__link">Logout</a>
+                <a href="" class="navbar__link">Sign Up</a>
+            </li>
+        </ul>
     </nav>
     {% block content %}{% endblock %}
 </body>

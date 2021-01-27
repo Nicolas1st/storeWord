@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+
+    &__container {
+        height: 80px;
+        padding: 0 18.2vw;
+        background-color: #5C8088;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        list-style-type: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__links {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4.55vw;
+        font-size: 20px;
+    }
+
+    &__link {
+        color: white;
+        text-decoration: none;
+    }
+
+    &__logo {
+        font-size: 40px;
+        font-weight: 700;
+    }
+}
