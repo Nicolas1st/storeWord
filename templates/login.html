@@ -5,16 +5,16 @@
     <a href="{{url_for('signup')}}" class="navbar__link">Sign Up</a>
 {% endblock links %}
 {% block content %}
-<h1>Login page</h1>
-<form action={{url_for('login')}} method="POST">
-    <div>
-        <label for="login">Login</label>
-        <input type="text" id="login" name="login">
+<h1 class="page-title">log in</h1>
+<form action={{url_for('login')}} method="POST" class="form">
+    <div class="form__field">
+        <label for="login" class="form__field-name">Login</label>
+        <input type="text" id="login" name="login" class="form__input">
     </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password">
+    <div class="form__field">
+        <label for="password" class="form__field-name">Password</label>
+        <input type="password" id="password" name="password" class="form__input">
     </div>
-    <input type="submit">
+    <input type="submit" class="form__submit" value="Login">
 </form>
 {% endblock content %}

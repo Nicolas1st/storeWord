@@ -9,12 +9,18 @@
 <body>
     <nav class="navbar">
         <ul class="navbar__container">
-            <li class="navbar__logo"><a href="" class="navbar__link">storeWord</a></li>
+            <li class="navbar__logo">
+                <a href="{{url_for('index')}}" class="navbar__link">storeWord</a>
+                <button class="navbar__button open"></button>
+            </li>
             <li class="navbar__links">
                 {% block links %}{% endblock links %}
             </li>
         </ul>
     </nav>
-    {% block content %}{% endblock content %}
+    <main class="content">
+        {% block content %}{% endblock content %}
+    </main>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>

@@ -2,37 +2,206 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
 
 .navbar {
 
     &__container {
-        height: 80px;
-        padding: 0 18.2vw;
+        height: fit-content;
+        padding: 0 8vw;
         background-color: #5C8088;
-        font-family: Arial, Helvetica, sans-serif;
         color: white;
         list-style-type: none;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    &__logo &__link {
+        align-self: center;
     }
 
     &__links {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 4.55vw;
-        font-size: 20px;
+        display: none;
+        margin-bottom: 15px;
+        gap: 15px;
+        flex-direction: column;
+        // position: relative;
+        // bottom: 100px;
     }
 
     &__link {
         color: white;
         text-decoration: none;
+        display: block;
+        position: relative;
     }
 
     &__logo {
         font-size: 40px;
         font-weight: 700;
+        padding: 2vh 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__button {
+        display: block;
+        height: 45px;
+        width: 45px;
+        border: none;
+        outline: none;
+        background-color: rgba(255, 255, 255, .4);
+        border-radius: 10px;
+        border-top-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        position: relative;
+        transition: 0.4s;
+
+        &::after, &::before {
+            content: "";
+            display: block;
+            background-color: white;
+            width: 35px;
+            height: 8px;
+            border-radius: 5px;
+            position: absolute;
+            transition: 0.4s;
+        }
+
+        &::after {
+            bottom: 8px;
+            left: 5px;
+        }
+
+        &::before {
+            top: 8px;
+            left: 5px;
+        }
+
+        &_open {
+            border-top-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            transition: 0.4s;
+            &::before{
+                transform: rotate(-35deg) translate(-3px, 2px);
+            }
+
+            &::after {
+                transform: rotate(-35deg) translate(3px, -2px);
+            }
+        }
+    }
+}
+
+
+.content {
+    padding: 5vh 8vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-title {
+    font-size: 36px;
+    width: fit-content;
+    margin: auto;
+    text-transform: capitalize;
+    // display: flex;
+    // justify-self: center;
+}
+
+
+.form {
+    
+    display: flex;
+    flex-direction: column;
+    width: unquote("min(100%, 500px)");
+    justify-content: space-between;
+    gap: 25px;
+    padding: 20px 0;
+
+    &__field {
+        display: flex;
+        justify-content: space-between;
+        gap: 28px;
+        align-items: center;
+    }
+
+    &__field-name {
+        font-size: 18px;
+    }
+
+    &__input {
+        width: 60%;
+        height: 40px;
+    }
+
+    &__submit {
+        height: 40px;
+        width: 100%;
+        border: none;
+        outline: none;
+        background-color: rgb(14, 194, 14);
+        border-radius: 5px;
+        font-size: 20px;
+    }
+
+}
+
+
+@media screen and (min-width: 800px) {
+
+    .navbar {
+        &__container {
+            padding: 0 18.2vw;
+        }
+
+        &__container {
+            flex-direction: row;
+            align-items: center;
+            height: 80px;
+            justify-content: space-between;
+        }
+
+        &__links {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            align-items: center;
+            gap: 4.55vw;
+            font-size: 20px;
+            margin-bottom: 0;
+        }
+
+        &__logo {
+            padding: 0;
+            width: fit-content;
+        }
+
+        &__button {
+            display: none;
+        }
+    }
+
+    .content {
+        padding: 5vh 18.2vw;
+    }
+
+    .form {
+        width: 500px;
+        padding: 50px 0;
+        gap: 50px;
+
+        &__input {
+            width: 70%;
+        }
+    }
+
+    .page-title {
+        font-size: 50px;
     }
 }
