@@ -147,12 +147,12 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: min(100%, 500px);
+  width: min(100%, 450px);
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  gap: 25px;
-  padding: 20px 0;
+  gap: 40px;
+  padding: 40px 0;
 }
 
 .form__field {
@@ -185,6 +185,13 @@
   background-color: #0ec20e;
   border-radius: 5px;
   font-size: 20px;
+}
+
+.form__link {
+  margin: -20px 0;
+  color: orange;
+  text-decoration: none;
+  text-transform: capitalize;
 }
 
 @media screen and (min-width: 800px) {
@@ -235,7 +242,6 @@
     padding: 5vh 18.2vw;
   }
   .form {
-    width: 500px;
     padding: 50px 0;
     gap: 50px;
   }
