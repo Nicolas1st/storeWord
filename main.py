@@ -63,17 +63,32 @@ def logout():
 
 @app.route("/profile/", methods=["GET", "POST"])
 def profile():
-    if "user" not in session:
-        return redirect(url_for("login"))
-    user = User.query.filter_by(login=session["user"]).first()
-    if request.method == "POST":
+    if request.method == "GET":
+        if "user" not in session:
+            session["words"] = []
+            return render_template("profile.html", words=session["words"])
+        else:
+            user = User.query.filter_by(login=session["user"]).first()
+            return render_template("profile.html", words=list(map(lambda word: word.word, user.words)))
+    else:
         word = request.form["word"]
-        if word not in list(map(lambda word: word.word, user.words)):
-            word = Word(word=word, user_id=user.id)
-            user.words.append(word)
-            db.session.add(user)
-            db.session.commit()
-    return render_template("profile.html", words=list(map(lambda word: word.word, user.words)))
+        if "user" not in session:
+            if word not in session["words"]: 
+                session["words"] = session["words"] + [word]
+            return render_template("profile.html", words=session["words"])
+        else:
+            user = User.query.filter_by(login=session["user"]).first()
+            if word not in list(map(lambda word: word.word, user.words)):
+                word = Word(word=word, user_id=user.id)    
+                user.words.append(word)
+                db.session.add(user)
+                db.session.commit()
+            return render_template("profile.html", words=list(map(lambda word: word.word, user.words)))
+
+
+# @app.route("/words")
+# def words():
+#     if "user" not in session:
 
 
 if __name__ == "__main__":
