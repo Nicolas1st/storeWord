@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 {% block links %}
     <a href="{{url_for('profile')}}" class="navbar__link">Words</a>
-    <a href="{{url_for('logout')}}" class="navbar__link">Logout</a>
+    {% if "user" in session %}
+        <a href="{{url_for('logout')}}" class="navbar__link">Logout</a>
+    {% else %}    
+        <a href="{{url_for('login')}}" class="navbar__link">Login</a>
+        <a href="{{url_for('signup')}}" class="navbar__link">Sign Up</a>
+    {% endif %}
 {% endblock links %}
 {%block content %}
-<h1>Profile page</h1>
+<h1 class="page-title">Profile page</h1>
 <form action="{{url_for('profile')}}" method="POST" class="form">
     <div class="form__field">
         <label for="word" class="form__field-name">Word: </label>
@@ -19,15 +24,4 @@
         <p>{{word}}</p>
     {% endfor %}
 </div>
-<!-- <form action={{url_for("profile")}} method="POST">
-    <div>
-        <label for="old_password">Password</label>
-        <input type="password" id="old_password" name="old_password">
-    </div>
-    <div>
-        <label for="new_password">Password</label>
-        <input type="password" id="new_password" name="new_password">
-    </div>
-    <input type="submit">
-</form> -->
 {% endblock content %}
