@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+from flask_restful import Api, Resource
 from database import *
 
 
@@ -61,14 +62,35 @@ def logout():
     return redirect(url_for("index"))
 
 
-@app.route("/profile/", methods=["GET", "POST"])
+@app.route("/profile/")
 def profile():
+    if "user" in session:
+        user = User.query.filter_by(login=session["user"]).first()
+        return render_template("profile.html", words=list(map(lambda word: word.word, user.words)))
+    else:
+        return render_template("profile.html", words=words["session"])
 
-    if request.method == "POST":
-        word = request.form["word"]
 
+api = Api(app)
+
+
+class WordManager(Resource):
+
+    def get(self, word=None):
+        if word in None:
+            if "user" in session:
+                login = session["user"]
+                User.query.filter_by(login=login).first()
+                words=list(map(lambda word: word.word, user.words)))
+                return words
+            else:
+                return session["words"]
+        else:
+            # planning to return statistics about this word on get, but its not yet implemented
+            return word
+
+    def post(self, word):
         if "user" in session:
-
             user = User.query.filter_by(login=session["user"]).first()
             if word not in list(map(lambda word: word.word, user.words)):
                 word = Word(word=word, user_id=user.id)    
@@ -78,9 +100,7 @@ def profile():
                 return {"result": "The word has been added"}
             else:
                 return {"result": "Cannot add the same word twice"}
-
         else:
-            
             if word not in session["words"]:
                 session["words"] += [word]
                 return {"result": "The word has been added"}
@@ -88,13 +108,8 @@ def profile():
                 return {"result": "Cannot add the same word twice"}
 
 
-    else:
-        if "user" in session:
-            user = User.query.filter_by(login=session["user"]).first()
-            return render_template("profile.html", words=list(map(lambda word: word.word, user.words)))
-        else:
-            return render_template("profile.html")
 
+api.add_resource(WordManager, "word/<string:word>")
 
 if __name__ == "__main__":
     app.run(debug=True)
