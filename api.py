@@ -23,7 +23,7 @@ class WordStorer(Resource):
                 user.words.append(new_word)
                 db.session.add(user)    
                 db.session.commit()
-                return {"result": "Success", "description": "The word has been added"}, 200
+                return {"result": "Success", "description": "The word has been added", "word": word, "wordId": new_word.id}, 200
             else:
                 return {"result": "Failure", "description": "Can not add the same word twice"}, 200
         else:
@@ -33,7 +33,8 @@ class WordStorer(Resource):
         if "user" in session:
             username = session["user"]
             user = User.query.filter_by(username=username).first()
-            db.session.delete(user.words.query.filter_by(word_id=word_id).first())
+            print(type(user.words))
+            db.session.delete(Word.query.filter_by(id=word_id).first())
             db.session.commit()
             return {"result": "Success", "description": "The word has been removed"}, 200
         else:

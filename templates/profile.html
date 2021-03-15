@@ -21,7 +21,10 @@
 </form>
 <div id="word-list">
     {% for word in words %}
-        <p>{{word}}</p>
+    <div class="word-item">
+        <p class="word__word" data-id={{word.id}}>{{word.word}}</p>
+        <button class="word-item__remove-button">Remove</button>
+    </div>
     {% endfor %}
 </div>
 <script type="text/javascript" src="{{ url_for('static', filename='js/wordsending.js') }}"></script>

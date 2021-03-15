@@ -67,7 +67,7 @@ def profile():
     if "user" in session:
         username = session["user"]
         user = User.query.filter_by(username=username).first()
-        return render_template("profile.html", words=list(map(lambda word: word.word, user.words)))
+        return render_template("profile.html", words=user.words)
     else:
         return "Not authorized"
 
