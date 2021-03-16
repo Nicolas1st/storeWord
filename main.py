@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_restful import Api, Resource
 from api import api_blueprint
 from database import *
@@ -18,6 +18,7 @@ app.register_blueprint(api_blueprint, url_prefix="/words/")
 def index():
     return render_template("index.html")
 
+
 @app.route('/signup/', methods=["GET", "POST"])
 def signup():
     if "user" in session:
@@ -34,6 +35,12 @@ def signup():
             db.session.commit()
             session["user"] = new_user.username
             return redirect(url_for("profile"))
+        if user_exists:
+            flash("The name you chose already exists")
+        if email_occupied:
+            flash("This email is already used")
+        if not passwords_match:
+            flash("The passwords don't match")
         return redirect(url_for("signup")) # add flash messages
     else:
         return render_template("signup.html") 
@@ -51,6 +58,7 @@ def login():
                 session["user"] = user.username
                 return redirect(url_for("profile"))
         else:
+            flash("Password and login do not match")
             return redirect(url_for("login")) # flash messages
     else:
         return render_template("login.html")
@@ -71,69 +79,6 @@ def profile():
     else:
         return "Not authorized"
 
-
-# class WordManager(Resource):
-
-#     def get(self, word_id=None, date=None):
-
-#         if "user" in session:
-#             login = session["user"]
-#             user = User.query.filter_by(login=login).first()
-#             if word_id is not None:
-#                 return list(map(lambda word: word.word, user.words))[word_id]
-#             elif date is not None:
-#                 # year, month, day = date.split("-")
-#                 date = date(*date.split("-"))
-#                 return list(filter(lambda word: word.date_found == date, user.words))
-#                 # return user.words.filter_by(date_found=date)
-#             else:
-#                 return list(map(lambda word: word.word, user.words))
-                
-#         #     if word_id is None:             
-#         #         return words
-#         #     else:
-#         #         return list(filter(lambda word: word.id == word_id, words))[0]
-#         # else:
-#         #     abort(401)
-#         # else:
-#         #     if "words" not in session:
-#         #         session["words"] = []
-#         #     if word_id is not None:
-#         #         return session["words"][word_id]
-#         #     if date is not None:
-#         #         pass    
-#         #     return session["words"]
-                
-#     def post(self):
-#         word = request.form["word"]
-#         if "user" in session:
-#             user = User.query.filter_by(login=session["user"]).first()
-#             if word not in list(map(lambda word: word.word, user.words)):
-#                 word = Word(word=word, user_id=user.id)    
-#                 user.words.append(word)
-#                 db.session.add(user)
-#                 db.session.commit()
-#                 return {"result": "Success"}
-#             else:
-#                 return {"result": "Failure"}
-#         else:
-#             if "words" not in session:
-#                 session["words"] = []
-#             if word not in session["words"]:
-#                 session["words"] += [word]
-#                 return {"result": "Success"}
-#             else:
-#                 return {"result": "Failure"}
-
-#     def delete(self, word_id):
-#         pass
-
-#     def patch(self):
-#         pass
-        
-
-
-# api.add_resource(WordManager, "/words/", "/words/<int:word_id>", "/words/<string:date>")
 
 if __name__ == "__main__":
     app.run(debug=True)

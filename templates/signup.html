@@ -6,6 +6,11 @@
 {% endblock links %}
 {% block content %}
 <h1 class="page-title">sign up</h1>
+<div class="flashed-messages">
+    {% for message in get_flashed_messages() %}
+        <p class="flashed-messages__message">{{message}}</p>
+    {% endfor %}
+</div>
 <form action={{url_for("signup")}} method="POST" class="form">
     <div class="form__field">
         <label for="login" class="form__field-name">Login</label>

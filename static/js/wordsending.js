@@ -5,6 +5,9 @@ const wordList = document.querySelector("#word-list");
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     sentData = new FormData(form);
+    if (sentData.get("word") === "") {
+      return;
+    }
     fetch('http://127.0.0.1:5000/words/' , {
         method: "POST",
         body: sentData,
@@ -25,15 +28,16 @@ form.addEventListener("submit", (e) => {
 
         div.appendChild(word);
         div.appendChild(button);
+        div.classList.add("word-item");
         
         wordList.appendChild(div);
+
+        document.querySelector(".form__input").value = "";
       } else {
         console.log("Failure");
       }
   });
 })
-
-// el.setAttribute('data-foo', 'Hello World!');
 
 
 wordList.addEventListener("click", event => {
@@ -49,18 +53,6 @@ wordList.addEventListener("click", event => {
       } else {
         console.log("Failure");
       }
-    },
-    error => {})
+    })
   }
 });
-
-
-// const element1 = document.querySelector('.a-class')
-// const element2 = document.querySelector('.another-class')
-
-// body.addEventListener('click', event => {
-//   if (event.target !== element1 && event.target !== element2) {
-//     return
-//   }
-//   //handle click
-// }
