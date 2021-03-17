@@ -59,7 +59,7 @@ def login():
                 return redirect(url_for("profile"))
         else:
             flash("Password and login do not match")
-            return redirect(url_for("login")) # flash messages
+        return redirect(url_for("login")) # flash messages
     else:
         return render_template("login.html")
 

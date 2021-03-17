@@ -23,6 +23,7 @@
     {% for word in words %}
     <div class="word-item">
         <p class="word__word" data-id={{word.id}}>{{word.word}}</p>
+        <p class="word__date">{{word.date_found}}</p>
         <button class="word-item__remove-button">Remove</button>
     </div>
     {% endfor %}
