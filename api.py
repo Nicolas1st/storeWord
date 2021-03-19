@@ -23,7 +23,7 @@ class WordStorer(Resource):
                 user.words.append(new_word)
                 db.session.add(user)    
                 db.session.commit()
-                return {"result": "Success", "description": "The word has been added", "word": word, "wordId": new_word.id}, 200
+                return {"result": "Success", "description": "The word has been added", "word": word, "wordId": new_word.id, "translation": "translation"}, 200
             else:
                 return {"result": "Failure", "description": "Can not add the same word twice"}, 200
         else:

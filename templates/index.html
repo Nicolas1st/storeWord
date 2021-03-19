@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block links %}
-    <a href="{{url_for('profile')}}" class="navbar__link">Words</a>
     {% if "user" in session %}
+        <a href="{{url_for('profile')}}" class="navbar__link">Words</a>
         <a href="{{url_for('logout')}}" class="navbar__link">Logout</a>
     {% else %}
         <a href="{{url_for('login')}}" class="navbar__link">Login</a>

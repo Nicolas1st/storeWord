@@ -77,7 +77,7 @@ def profile():
         user = User.query.filter_by(username=username).first()
         return render_template("profile.html", words=user.words)
     else:
-        return "Not authorized"
+        return redirect(url_for("login"))
 
 
 if __name__ == "__main__":

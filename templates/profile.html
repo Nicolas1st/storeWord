@@ -1,32 +1,62 @@
 {% extends "base.html" %}
 {% block links %}
     <a href="{{url_for('profile')}}" class="navbar__link">Words</a>
-    {% if "user" in session %}
-        <a href="{{url_for('logout')}}" class="navbar__link">Logout</a>
-    {% else %}    
-        <a href="{{url_for('login')}}" class="navbar__link">Login</a>
-        <a href="{{url_for('signup')}}" class="navbar__link">Sign Up</a>
-    {% endif %}
+    <a href="{{url_for('logout')}}" class="navbar__link">Logout</a>
 {% endblock links %}
-{%block content %}
-<h1 class="page-title">Profile page</h1>
-<form       class="form" id="form">
-    <div class="form__field">
-        <label for="word" class="form__field-name">Word: </label>
-        <input type="text" name="word" class="form__input">
+{% block content %}
+<h1 class="page-title"> words </h1>
+<main class="page-content">
+<section class="page-content__part1">
+    <div class="brief-stats">
+        <div class="brief-stats__names">
+            <p class="brief-stats__name">learned:</p>
+            <p class="brief-stats__name">per day:</p>
+            <p class="brief-stats__name">streak:</p>
+            <p class="brief-stats__name">recall:</p>
+        </div>
+        <div class="brief-stats__values">
+            <p class="brief-stats__value">40 words</p>
+            <p class="brief-stats__value">5 words</p>
+            <p class="brief-stats__value">8 days</p>
+            <p class="brief-stats__value">90%</p>
+        </div>
     </div>
-    <div>
-        <input type="submit" class="form__submit">
+    <div class="buttons">
+        <button class="buttons__repeat-button">repeat</button>
+        <button class="buttons__see-stats-button">more stats</button>
     </div>
-</form>
-<div id="word-list">
-    {% for word in words %}
-    <div class="word-item">
-        <p class="word__word" data-id={{word.id}}>{{word.word}}</p>
-        <p class="word__date">{{word.date_found}}</p>
-        <button class="word-item__remove-button">Remove</button>
+
+</section>
+<section class="page-content__part2">
+    <form action="" class="add-word-form">
+        <input type="text" class="add-word-form__input" placeholder="new word goes here" name="word">
+        <input type="submit" class="add-word-form__submit" value="Add">
+    </form>
+    <div class="words-container">
+        {% for word in words%}
+        <div class="words-container__word">
+            <p class="words-container__word-text" data-id={{word.id}}>{{word.word}}</p>
+            <p class="words-container__word-translation">word</p>
+            <div class="words-container__word-buttons">
+                <button class="words-container__word-info-button">
+                    <img src={{url_for('static',filename="img/magnifyingGlass.svg")}} alt="" class="words-container__svg-info">
+                </button>
+                <button class="words-container__word-remove-button">
+                    <img src={{url_for('static',filename="img/trashBin.svg")}} alt="" class="words-container__svg-remove">
+                </button>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+</section>
+</main>
+<div class="words-container__word-buttons" style="display: none" id="buttons">
+    <button class="words-container__word-info-button">
+        <img src={{url_for('static',filename="img/magnifyingGlass.svg")}} alt="" class="words-container__svg-info">
+    </button>
+    <button class="words-container__word-remove-button">
+        <img src={{url_for('static',filename="img/trashBin.svg")}} alt="" class="words-container__svg-remove">
+    </button>
 </div>
 <script type="text/javascript" src="{{ url_for('static', filename='js/wordsending.js') }}"></script>
 {% endblock content %}
